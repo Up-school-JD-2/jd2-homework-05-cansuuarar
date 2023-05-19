@@ -1,17 +1,17 @@
 package com.cansu.homework05;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class PaymentOperationMain {
 
-	static boolean repeat = false;
+	static int repeatOperation = 0;
+
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
 
-		
-
-		while(!repeat) {
+		while (repeatOperation <= 1) {
 			try {
 				System.out.print("Enter total price: ");
 				int price = sc.nextInt();
@@ -19,30 +19,22 @@ public class PaymentOperationMain {
 					throw new InvalidAmountException("invalid payment type!");
 				}
 
-				
-
 				System.out.print("\nEnter credit card number: ");
 				String cardNumber = sc.next();
 				if (!isValidCardNumber(cardNumber)) {
 					throw new InvalidCardNumberException("Invalid card number!");
 				}
 
-				
+				System.out.print("\nEnter expire date of card in format MM/YYYY: ");
+				String date = sc.next();
 
-				System.out.print("\nEnter expire date of card ");
-				System.out.print("\nMM: ");
-				
-				
-				int month = sc.nextInt(); 
-				System.out.print("\nYYYY: ");
-				int year = sc.nextInt();
+				String[] dateArray = date.split("/");
+				int month = Integer.parseInt(dateArray[0]);
+				int year = Integer.parseInt(dateArray[1]);
 
-				
 				if (!isValidDate(month, year)) {
 					throw new InvalidExpireDateException("Invalid expire date!");
 				}
-
-				
 
 				System.out.print("\nEnter securtiy number of card: ");
 				String securityNumber = sc.next();
@@ -56,10 +48,10 @@ public class PaymentOperationMain {
 					| InvalidSecurityNumberException e) {
 				System.out.println(e.getMessage());
 			} catch (SystemNotWorkingException e) {
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 		}
-		
+
 	}
 
 	public static boolean isValidPrice(int price) {
@@ -92,7 +84,7 @@ public class PaymentOperationMain {
 	public static boolean isValidDate(int month, int year) {
 		boolean isValidDate = false;
 
-		if (month >= 1 && month <= 12 && year >= 2023 && year <= 9999) {
+		if (month >= 01 && month <= 12 && year >= 2023 && year <= 9999) {
 			isValidDate = true;
 		}
 
@@ -121,10 +113,13 @@ public class PaymentOperationMain {
 		int number = (int) (Math.random() * 100);
 
 		if (number >= 75) {
-			System.out.println(number + " is higher than 75. Please rerun operation.");
-			throw new SystemNotWorkingException("higher than 75 exception.");
+			// System.out.println(number + " is higher than 75. Please run the operation one
+			// more time.");
+			repeatOperation++;
+			throw new SystemNotWorkingException(number + " is higher than 75. Please run the operation one more time.");
+
 		} else {
-			repeat = true;
+			repeatOperation = 2;
 			System.out.println(number + " is lower than 75. Operation is done.");
 		}
 
