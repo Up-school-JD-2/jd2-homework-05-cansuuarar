@@ -1,6 +1,6 @@
 package com.cansu.homework05;
 
-import java.util.Arrays;
+
 import java.util.Scanner;
 
 public class PaymentOperationMain {
@@ -36,10 +36,10 @@ public class PaymentOperationMain {
 					throw new InvalidExpireDateException("Invalid expire date!");
 				}
 
-				System.out.print("\nEnter securtiy number of card: ");
+				System.out.print("\nEnter security number of card: ");
 				String securityNumber = sc.next();
 				if (!isValidSecurityNumber(securityNumber)) {
-					throw new InvalidSecurityNumberException("Invalid securtiy number!");
+					throw new InvalidSecurityNumberException("Invalid security number!");
 				}
 
 				pay();
@@ -113,8 +113,6 @@ public class PaymentOperationMain {
 		int number = (int) (Math.random() * 100);
 
 		if (number >= 75) {
-			// System.out.println(number + " is higher than 75. Please run the operation one
-			// more time.");
 			repeatOperation++;
 			throw new SystemNotWorkingException(number + " is higher than 75. Please run the operation one more time.");
 
